@@ -11,11 +11,17 @@ function list_tags {
 }
 
 function list_tags_releases {
-  list_tags ${1} | while read -r line; do
+  declare -A versions
+  for line in $(list_tags ${1}); do
     name=$(echo "${line}" | jq -r '.name')
-    if [[ "${name}" =~ ^[0-9]+\.[0-9]+$ ]]; then
-      echo "${name}"
+    if [[ "${name}" =~ ^([0-9]+\.[0-9]+)\.([0-9]+)$ ]]; then
+      if [ -z ${versions[${BASH_REMATCH[1]}]} ] || [ ${BASH_REMATCH[2]} -gt ${versions[${BASH_REMATCH[1]}]} ]; then
+        versions[${BASH_REMATCH[1]}]=${BASH_REMATCH[2]}
+      fi
     fi
+  done
+  for key in ${!versions[@]}; do
+    echo "${key}.${versions[${key}]}"
   done
 }
 
