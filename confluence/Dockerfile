@@ -1,3 +1,4 @@
+#syntax=nobidev/dockerfile
 ARG VERSION
 FROM atlassian/confluence:${VERSION}
 
@@ -13,4 +14,6 @@ RUN docker-init.sh /opt/atlassian /replaces.json
 
 ARG VERSION
 FROM atlassian/confluence:${VERSION}
-COPY --from=1 /opt/atlassian/ /opt/atlassian/
+COPY --from=1 --chown=confluence:confluence /opt/atlassian/ /opt/atlassian/
+
+USER confluence

@@ -1,3 +1,4 @@
+#syntax=nobidev/dockerfile
 ARG VERSION
 FROM atlassian/jira-software:${VERSION}
 
@@ -13,4 +14,6 @@ RUN docker-init.sh /opt/atlassian /replaces.json
 
 ARG VERSION
 FROM atlassian/jira-software:${VERSION}
-COPY --from=1 /opt/atlassian/ /opt/atlassian/
+COPY --from=1 --chown=jira:jira /opt/atlassian/ /opt/atlassian/
+
+USER jira

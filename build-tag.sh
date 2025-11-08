@@ -34,5 +34,5 @@ function list_tags_releases_sorted {
   echo latest
 }
 
-list_tags_releases_sorted jira-software 8.18 > jira-tags.txt
-list_tags_releases_sorted confluence 8.0 > confluence-tags.txt
+# list_tags_releases_sorted jira-software 9.11 > jira-tags.txt
+list_tags_releases_sorted confluence 8.6 > confluence-tags.txt

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-for item in $(find ${1}/confluence/confluence/WEB-INF/lib -maxdepth 1 -type f -name "com.atlassian.extras_atlassian-extras-key-manager-*.jar"); do
+# for item in $(find ${1}/confluence/confluence/WEB-INF/lib -maxdepth 1 -type f -name "com.atlassian.extras_atlassian-extras-key-manager-*.jar"); do
+for item in $(find ${1}/confluence/confluence/WEB-INF/lib -maxdepth 1 -type f -name "com.atlassian.extras.atlassian-extras-key-manager-*.jar"); do
   hash=$(echo "${item}" | openssl dgst -md5 -binary | hexdump -v -e '/1 "%02x"')
   disassemble -out /dist/${hash} -roundtrip ${item} >>/dev/null
   cat ${2} | jq -r '.[] | tojson' | while read -r line; do

@@ -7,7 +7,7 @@ variable "CONFLUENCE_VERSION" {
 }
 
 variable "REGISTRY" {
-  default = "harbor.nobidev.com"
+  default = "harbor.nobidev.tech"
 }
 
 target "krakatau" {
@@ -15,9 +15,6 @@ target "krakatau" {
   pull = true
   tags = [
     "${REGISTRY}/library/krakatau:latest"
-  ]
-  output = [
-    "type=registry,push=true"
   ]
 }
 
