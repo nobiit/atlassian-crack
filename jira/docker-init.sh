@@ -20,6 +20,8 @@ for item in $(find ${1}/jira/atlassian-jira/WEB-INF/lib -maxdepth 1 -type f -nam
       exit 1
     fi
     assemble -out ${item} -r /dist/${hash} >>/dev/null
+    hash_content=$(openssl dgst -md5 -binary ${item} | hexdump -v -e '/1 "%02x"')
+    sed -i -E "s|(/$(basename ${item}))=.+|\1=${hash_content}|" /opt/atlassian/jira/atlassian-jira/WEB-INF/classes/hash-registry.properties
   done
 done
 
